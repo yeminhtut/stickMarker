@@ -1,0 +1,35 @@
+<div ng-include="'components/shell/shell.html'"></div>
+<div class="layout-content" ng-controller="EditArticleCtrl as vm" style="max-width:1170px;margin:0px auto;">
+    <div ng-show="!vm.showArticleForm">
+        <md-button class="md-raised md-primary" ng-click="vm.resumeArticle()">Resume article</md-button>
+        <md-button class="md-raised" ng-click="vm.editExistingArticle()">Edit article</md-button>
+    </div>
+    <div ng-show="vm.showArticleForm">
+        <form name="articleForm" class="ng-pristine ng-valid ng-valid-mindate ng-valid-maxdate ng-valid-filtered ng-valid-valid ng-valid-required ng-valid-pattern">
+            <div layout-gt-sm="row" class="layout-gt-sm-row">
+                <md-input-container class="md-block flex-gt-sm" flex-gt-sm="">
+                    <h1 ng-model="vm.article.title" medium-editor bind-options="{disableReturn: true, disableExtraSpaces: true, toolbar: false,'placeholder':{text:'Title'}}" ng-change="vm.saveSection()"></h1>
+                    <div class="md-errors-spacer" ></div>
+                </md-input-container>
+            </div>
+            <md-input-container class="md-block md-input-has-value">
+                <div class="md-resize-wrapper">
+                    <div class="medium-content-area" name="text" ng-model="vm.article.content" required medium-editor bind-options="{'placeholder': {text: 'Tell your story...'},
+                    'buttons': ['bold', 'italic', 'underline', 'header1', 'header2', 'quote', 'orderedlist', 'unorderedlist']}" ng-change="vm.saveSection()"></div>
+                </div>
+                
+                <md-button class="md-raised" ng-click="vm.save(vm.article)">Save as Draft</md-button>
+                <md-button class="md-raised md-primary" ng-click="vm.publish(vm.article)">Save and Publish</md-button>
+            </md-input-container>
+
+        </form>
+    </div>
+</div>
+<style type="text/css">
+.medium-content-area{
+    min-height: 300px;
+    /*border:1px solid #AAA;*/
+    padding: 10px;
+}
+</style>
+

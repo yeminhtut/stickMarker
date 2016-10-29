@@ -1,0 +1,34 @@
+<md-content class="md-padding">
+    <md-card class="login-card">
+      <md-card-content>
+        <h2 class="md-title">Change Password</h2>
+        <form name="form" ng-submit="vm.changePassword(form)" novalidate>
+          <md-input-container>
+            <label>Current Password</label>
+            <input type="password" name="password" class="form-control" ng-model="vm.user.oldPassword"
+                 mongoose-error/>
+            <p class="help-block" ng-show="form.password.$error.mongoose">
+              {{ errors.other }}
+            </p>
+          </md-input-container>
+          <md-input-container>
+            <label>New Password</label>
+            <input type="password" name="newPassword" class="form-control" ng-model="vm.user.newPassword"
+                 ng-minlength="3"
+                 required/>
+            <p class="help-block"
+             ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || vm.submitted)">
+              Password must be at least 3 characters.
+          </p>
+          <p class="help-block"> {{ message }} </p>
+          </md-input-container>
+          <div layout="row">
+            <md-button class="md-primary" type="submit">Save Changes</md-button>
+            <md-button flex type="submit" ng-click="main" ui-sref="main">Cancel</md-button>
+          </div>
+        </form>
+      </md-card-content>
+    </md-card>
+</md-content>
+
+

@@ -1,0 +1,65 @@
+<div ng-include="'components/shell/shell.html'"></div>
+
+
+<div class="content">
+  <div class="create-btn back-view md-toolbar-tools" ng-href="history/{{vm.articleId}}" style="font-size:14px;" >
+        <md-button ng-click="dashboard" ui-sref="dashboard">
+            <i class="fa fa-long-arrow-left" aria-hidden="true"></i><span>Go back to Dashboard</span>
+        </md-button>
+    </div>
+    <div class="content white-bg error-div" ng-show="!vm.isLoading && !vm.revisions.length"> No History found for current article.</div>
+  <div class="white-bg custom-data-table">
+<md-table-container ng-show="!vm.isLoading && vm.revisions.length>0">
+  <table md-table>
+    <thead md-head>
+      <tr md-row>
+        <th md-column><span>#</span></th>
+        <th md-column><span>Title</span></th>
+        <th md-column><span>Content</span></th>
+        <th md-column><span>Version</span></th>
+        <th md-column>Created Date</th>
+        <th md-column>Updated Date</th>
+        <th md-column></th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select-id="name" ng-repeat="revision in vm.revisions track by $index">
+        <td md-cell>
+          <span>
+            {{$index+1}}
+          </span>
+        </td>
+        <td md-cell>
+          <span>
+            {{revision.title}}
+          </span>
+        </td>
+        <td md-cell>
+          <span>
+            {{revision.content}}
+          </span>
+        </td>
+        <td md-cell>
+          {{revision.version}}
+        </td>
+        <td md-cell>{{revision.created_date | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
+        <td md-cell>{{revision.updated_date | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
+        <td md-cell>
+          <md-button ng-href="history/{{vm.articleId}}/detail/{{revision._id}}">
+            <md-icon md-svg-src="assets/icons/ic_visibility_black_18px.svg"></md-icon>
+            <md-tooltip md-visible="false" md-direction="top">
+                View the history
+            </md-tooltip>
+          </md-button>
+          <md-button ng-click="vm.deleteHistory(revision._id)">
+            <md-icon md-svg-src="assets/icons/ic_clear_black_18px.svg"></md-icon>
+            <md-tooltip md-visible="false" md-direction="top">
+              Delete history
+            </md-tooltip>
+          </md-button></td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+</div>
+</div>

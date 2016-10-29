@@ -1,0 +1,33 @@
+<div ng-include="'components/shell/shell.html'"></div>
+<div class="content">
+    <div class="create-btn back-view md-toolbar-tools" ng-href="history/{{vm.articleId}}" style="font-size:14px;">
+        <md-button ng-href="history/{{vm.articleId}}">
+            <i class="fa fa-long-arrow-left" aria-hidden="true"></i><span>Go back to all history</span>
+        </md-button>
+    </div>
+    <div class="cls"></div>
+    <ms-card class="ng-pristine ng-untouched ng-valid ms-card ng-isolate-scope ng-not-empty" aria-invalid="false">
+        <!-- ngInclude: templatePath -->
+        <div class="ms-card-content-wrapper">
+            <div class="template-6">
+                <div class="content">
+                    </div>
+                    <!-- end ngIf: card.subtitle --><!-- ngIf: card.title -->
+                    <div class="card-title">{{vm.revision.title}}</div>
+                    <div class="text-sm">Last Updated: <span style="font-size:14px;font-weight:300;font-sytle:italic;"> ({{vm.revision.updated_date | date:'yyyy-MM-dd HH:mm:ss Z'}})</span></div>
+                    <!-- end ngIf: card.title --><!-- ngIf: card.text -->
+                    <div class="text pt-8">{{vm.revision.content}}</div>
+                    <!-- end ngIf: card.text -->
+                </div>
+            </div>
+        </div>
+    </ms-card>
+</div>
+
+
+
+
+
+
+
+

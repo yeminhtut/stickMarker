@@ -1,0 +1,67 @@
+<div ng-include="'components/shell/shell.html'"></div>
+<div class="content">
+    <div class="create-btn" style="float:right;">
+        <md-button class="md-raised md-primary" ng-href="article/create">Create New Article</md-button>
+    </div>
+    <div class="clear" style="clear:both;"></div>
+    <div class="white-bg custom-data-table">
+        <md-table-container ng-show="!vm.isLoading && vm.articles.length>0">
+            <table md-table>
+                <thead md-head>
+                    <tr md-row>
+                        <th md-column><span>#</span></th>
+                        <th md-column md-numeric ><span>Title</span></th>
+                        <th md-column md-numeric>Updated Date</th>
+                        <th md-column md-numeric>Status</th>
+                        <th md-column md-numeric></th>
+                    </tr>
+                </thead>
+                <tbody md-body>
+                    <tr md-row md-select="article"  ng-repeat="article in vm.articles | orderBy:'-updated_date' | limitTo: query.limit : (query.page -1) * query.limit">
+                        <td md-cell>
+                            <span>
+                            {{$index+1}}
+                            </span>
+                        </td>
+                        <td md-cell>
+                            <span>
+                            {{article.title}}
+                            </span>
+                        </td>
+                        <td md-cell>{{article.updated_date | date:'yyyy-MM-dd HH:mm:ss Z'}}</td>
+                        <td md-cell>
+                            {{article.is_published? "Publish" : "Draft"}} 
+                            <md-button class="md-icon-button" ng-if="$index===0">
+                                <md-icon md-svg-src="assets/icons/ic_loyalty_black_18px.svg"></md-icon>
+                                <md-tooltip md-visible="false" md-direction="top">
+                                    The last article which user was working on.
+                                </md-tooltip>
+                            </md-button>
+                        </td>
+                        <td md-cell>
+                            <md-button ng-href="article/edit/{{article._id}}">
+                                <md-icon md-svg-src="assets/icons/ic_edit_black_18px.svg"></md-icon>
+                                <md-tooltip md-visible="false" md-direction="top">
+                                    Edit article
+                                </md-tooltip>
+                            </md-button>
+                            <md-button ng-href="history/{{article._id}}">
+                                <md-icon md-svg-src="assets/icons/ic_visibility_black_18px.svg"></md-icon>
+                                <md-tooltip md-visible="false" md-direction="top">
+                                    View all histories of the article
+                                </md-tooltip>
+                            </md-button>
+                            <md-button ng-click="vm.deleteArticle(article._id)">
+                                <md-icon md-svg-src="assets/icons/ic_clear_black_18px.svg"></md-icon>
+                                <md-tooltip md-visible="false" md-direction="top">
+                                    Delete article
+                                </md-tooltip>
+                            </md-button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </md-table-container>
+         <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{vm.articlesCount}}" md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks"></md-table-pagination>
+    </div>
+</div>
